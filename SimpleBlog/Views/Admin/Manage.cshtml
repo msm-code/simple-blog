@@ -1,0 +1,58 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Manage Posts, Categories and Tags</title>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <link href="/Content/themes/simple/jqueryuicustom/css/sunny/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" />
+    <link href="/Scripts/jqgrid/css/ui.jqgrid.css" rel="stylesheet" />
+    <script src="/Scripts/jqgrid/js/jquery.jqGrid.min.js"></script>
+    <script src="/Scripts/jqgrid/js/i18n/grid.locale-en.js"></script>
+    <script src="/Scripts/tiny_mce/tiny_mce.js"></script>
+    <link href="/Content/themes/simple/admin.css" rel="stylesheet" />
+    <script src="/Scripts/admin.js"></script>
+
+</head>
+<body>
+
+    <!-- logout link -->
+    <div style="text-align:right; margin-bottom:5px;">
+        <a href="/Blog/Logout">logout</a>
+    </div>
+
+    <h2>Manage Posts, Categories and Tags</h2>
+
+    <!-- tab control -->
+    <div id="tabs">
+        <ul>
+            <li><a href="#tab-posts">Posts</a></li>
+            <li><a href="#tab-cats">Categories</a></li>
+            <li><a href="#tab-tags">Tags</a></li>
+        </ul>
+
+        <div id="tab-posts" class="tab">
+            <table id="tablePosts" class="grid"></table>
+            <div id="pagerPosts" class="pager">
+            </div>
+        </div>
+
+        <div id="tab-cats" class="tab">
+            <table id="tableCats" class="grid"></table>
+            <div id="pagerCats" class="pager">
+            </div>
+        </div>
+
+        <div id="tab-tags" class="tab">
+            <table id="tableTags" class="grid"></table>
+            <div id="pagerTags" class="pager">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

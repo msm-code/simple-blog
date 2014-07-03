@@ -1,0 +1,11 @@
+bin/
+csx/
+obj/
+rcf/
+.publishsettings
+*.suo
+*.user
+*.backup.*
+packages/
+_ReSharper*/
+*ncrunch*
