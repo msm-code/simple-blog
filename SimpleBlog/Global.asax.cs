@@ -1,6 +1,7 @@
 ﻿using Ninject;
 using Ninject.Web.Common;
 using SimpleBlog.Core;
+using SimpleBlog.Core.Objects;
 using SimpleBlog.Providers;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -20,6 +21,7 @@ namespace SimpleBlog {
         protected override void OnApplicationStarted() {
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            ModelBinders.Binders.Add(typeof(Post), new PostModelBinder(Kernel));
             base.OnApplicationStarted();
         }
     }

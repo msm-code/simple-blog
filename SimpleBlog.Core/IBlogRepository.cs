@@ -32,5 +32,15 @@ namespace SimpleBlog.Core {
         IList<Post> Posts(int pageNo, int pageSize, string sortColumn, bool sortAsc);
 
         int TotalPosts(bool checkIsPublished = true);
+
+        int AddPost(Post post);
+
+        Category Category(int id);
+
+        Tag Tag(int id);
+
+        void EditPost(Post post);
+
+        void DeletePost(int id);
     }
 }

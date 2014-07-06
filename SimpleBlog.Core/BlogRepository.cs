@@ -134,20 +134,35 @@ namespace SimpleBlog.Core {
 
 
         public IList<Post> Posts(int pageNo, int pageSize, string sortColumn, bool sortAsc) {
-            Expression<Func<Post, IComparable>> predicate = null;
+            Func<IQueryable<Post>, IOrderedQueryable<Post>> orderAsc = null;
+            Func<IQueryable<Post>, IOrderedQueryable<Post>> orderDesc = null;
+
             switch (sortColumn) {
-                case "Title": predicate = p => p.Title; break;
-                case "Published": predicate = p => p.Published; break;
-                case "PostedOn": predicate = p => p.PostedOn; break;
-                case "Modified": predicate = p => p.Modified; break;
-                case "Category": predicate = p => p.Category.Name; break;
+                case "Title":
+                    orderAsc = (q) => Queryable.OrderBy(q, p => p.Title);
+                    orderDesc = (q) => Queryable.OrderByDescending(q, p => p.Title);
+                    break;
+                case "Published":
+                    orderAsc = (q) => Queryable.OrderBy(q, p => p.Published);
+                    orderDesc = (q) => Queryable.OrderByDescending(q, p => p.Published);
+                    break;
+                case "PostedOn":
+                    orderAsc = (q) => Queryable.OrderBy(q, p => p.PostedOn);
+                    orderDesc = (q) => Queryable.OrderByDescending(q, p => p.PostedOn);
+                    break; 
+                case "Modified": 
+                    orderAsc = (q) => Queryable.OrderBy(q, p => p.Modified);
+                    orderDesc = (q) => Queryable.OrderByDescending(q, p => p.Modified);
+                    break; 
+                case "Category":
+                    orderAsc = (q) => Queryable.OrderBy(q, p => p.Category.Name);
+                    orderDesc = (q) => Queryable.OrderByDescending(q, p => p.Category.Name);
+                    break; 
             }
 
-            Func<IQueryable<Post>, Expression<Func<Post, IComparable>>, IOrderedQueryable<Post>> orderAsc = Queryable.OrderBy;
-            Func<IQueryable<Post>, Expression<Func<Post, IComparable>>, IOrderedQueryable<Post>> orderDesc = Queryable.OrderByDescending;
             var orderFunc = sortAsc ? orderAsc : orderDesc;
 
-            IQueryable<Post> query = orderFunc(session.Query<Post>(), predicate)
+            IQueryable<Post> query = orderFunc(session.Query<Post>())
                 .Skip(pageNo * pageSize)
                 .Take(pageSize)
                 .Fetch(p => p.Category);
@@ -162,5 +177,39 @@ namespace SimpleBlog.Core {
                 .Where(p => checkIsPublished || p.Published == true)
                 .Count();
         }
+
+
+        public int AddPost(Post post) {
+            using (var tran = session.BeginTransaction()) {
+                session.Save(post);
+                tran.Commit();
+                return post.Id;
+            }
+        }
+
+        public Category Category(int id) {
+            return session.Query<Category>().FirstOrDefault(t => t.Id == id);
+        }
+
+        public Tag Tag(int id) {
+            return session.Query<Tag>().FirstOrDefault(t => t.Id == id);
+        }
+
+        public void EditPost(Post post) {
+            using (var tran = session.BeginTransaction()) {
+                session.SaveOrUpdate(post);
+                tran.Commit();
+            }
+        }
+
+        public void DeletePost(int id) {
+            using (var tran = session.BeginTransaction()) {
+                var post = session.Get<Post>(id);
+                session.Delete(post);
+                tran.Commit();
+            }
+        }
+
+        public IQueryable<Objects.Post> Func { get; set; }
     }
 }
