@@ -210,6 +210,29 @@ namespace SimpleBlog.Core {
             }
         }
 
+        public int AddCategory(Category category) {
+            using (var tran = session.BeginTransaction()) {
+                session.Save(category);
+                tran.Commit();
+                return category.Id;
+            }
+        }
+
+        public void EditCategory(Category category) {
+            using (var tran = session.BeginTransaction()) {
+                session.SaveOrUpdate(category);
+                tran.Commit();
+            }
+        }
+
+        public void DeleteCategory(int id) {
+            using (var tran = session.BeginTransaction()) {
+                var category = session.Get<Category>(id);
+                session.Delete(category);
+                tran.Commit();
+            }
+        }
+
         public IQueryable<Objects.Post> Func { get; set; }
     }
 }
