@@ -447,9 +447,141 @@
             editOptions, addOptions, deleteOptions);
         },
 
-        // create grid to manage tags
         tagsGrid: function (gridName, pagerName) {
+            var colNames = ['Id', 'Name', 'Url Slug', 'Description'];
+ 
+            var columns = [];
+ 
+            columns.push({
+                name: 'Id',
+                index: 'Id',
+                hidden: true,
+                sorttype: 'int',
+                key: true,
+                editable: false,
+                editoptions: {
+                    readonly: true
+                }
+            });
+ 
+            columns.push({
+                name: 'Name',
+                index: 'Name',
+                width: 200,
+                editable: true,
+                edittype: 'text',
+                editoptions: {
+                    size: 30,
+                    maxlength: 50
+                },
+                editrules: {
+                    required: true
+                }
+            });
+ 
+            columns.push({
+                name: 'UrlSlug',
+                index: 'UrlSlug',
+                width: 200,
+                editable: true,
+                edittype: 'text',
+                sortable: false,
+                editoptions: {
+                    size: 30,
+                    maxlength: 50
+                },
+                editrules: {
+                    required: true
+                }
+            });
+ 
+            columns.push({
+                name: 'Description',
+                index: 'Description',
+                width: 200,
+                editable: true,
+                edittype: 'textarea',
+                sortable: false,
+                editoptions: {
+                    rows: "4",
+                    cols: "28"
+                }
+            });
+ 
+            $(gridName).jqGrid({
+                url: '/Admin/Tags',
+                datatype: 'json',
+                mtype: 'GET',
+                height: 'auto',
+                toppager: true,
+                colNames: colNames,
+                colModel: columns,
+                pager: pagerName,
+                rownumbers: true,
+                rownumWidth: 40,
+                rowNum: 500,
+                sortname: 'Name',
+                loadonce: true,
+                jsonReader: {
+                    repeatitems: false
+                }
+            });
+     
+            var addOptions = {
+                url: '/Admin/AddTag',
+                width: 400,
+                addCaption: 'Add Tag',
+                processData: "Saving...",
+                closeAfterAdd: true,
+                closeOnEscape: true,
+                afterSubmit: function (response, postdata) {
+                    var json = $.parseJSON(response.responseText);
 
+                    if (json) {
+                        $(gridName).jqGrid('setGridParam', { datatype: 'json' });
+                        return [json.success, json.message, json.id];
+                    }
+
+                    return [false, "Failed to get result from server.", null];
+                }
+            };
+            var editOptions = {
+                url: '/Admin/EditTag',
+                width: 400,
+                editCaption: 'Edit Tag',
+                processData: "Saving...",
+                closeAfterEdit: true,
+                closeOnEscape: true,
+                afterSubmit: function (response, postdata) {
+                    var json = $.parseJSON(response.responseText);
+
+                    if (json) {
+                        $(gridName).jqGrid('setGridParam', { datatype: 'json' });
+                        return [json.success, json.message, json.id];
+                    }
+
+                    return [false, "Failed to get result from server.", null];
+                }
+            };
+
+            var deleteOptions = {
+                url: '/Admin/DeleteTag',
+                caption: 'Delete Tag',
+                processData: "Saving...",
+                width: 400,
+                msg: "Delete the tag? This will delete all the posts belongs to this tag as well.",
+                closeOnEscape: true,
+                afterSubmit: SimpleBlog.GridManager.afterSubmitHandler
+            };
+
+            // configuring the navigation toolbar.
+            $(gridName).jqGrid('navGrid', pagerName,
+            {
+                cloneToTop: true,
+                search: false
+            },
+
+            editOptions, addOptions, deleteOptions);
         }
     }
 

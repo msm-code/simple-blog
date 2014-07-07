@@ -5,8 +5,7 @@
     <title>@ViewBag.Title</title>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" type="text/css"
-          href="@Url.Content("~/Content/themes/simple/style.css")" />
+    @Styles.Render("~/content/css")
 </head>
 <body>
     <div id="main">
@@ -44,8 +43,7 @@
             Copyright © @DateTime.Now.Year SimpleBlog All Rights Reserved
         </div>
 
-        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
-        <script src="@Url.Content("~/Scripts/app.js")"></script>
+        @Scripts.Render("~/js/jquery", "~/js/app")
     </div>
 </body>
 </html>

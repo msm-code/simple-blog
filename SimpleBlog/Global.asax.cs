@@ -4,6 +4,7 @@ using SimpleBlog.Core;
 using SimpleBlog.Core.Objects;
 using SimpleBlog.Providers;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace SimpleBlog {
@@ -22,6 +23,7 @@ namespace SimpleBlog {
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ModelBinders.Binders.Add(typeof(Post), new PostModelBinder(Kernel));
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
             base.OnApplicationStarted();
         }
     }

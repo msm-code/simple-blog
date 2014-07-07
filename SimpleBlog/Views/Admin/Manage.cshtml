@@ -8,15 +8,8 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Manage Posts, Categories and Tags</title>
-    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
-    <link href="/Content/themes/simple/jqueryuicustom/css/sunny/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" />
-    <link href="/Scripts/jqgrid/css/ui.jqgrid.css" rel="stylesheet" />
-    <script src="/Scripts/jqgrid/js/jquery.jqGrid.min.js"></script>
-    <script src="/Scripts/jqgrid/js/i18n/grid.locale-en.js"></script>
-    <script src="/Scripts/tiny_mce/tiny_mce.js"></script>
-    <link href="/Content/themes/simple/admin.css" rel="stylesheet" />
-    <script src="/Scripts/admin.js"></script>
+
+    @Styles.Render("~/content/admin", "~/content/jqgrid")
 
 </head>
 <body>
@@ -54,5 +47,12 @@
             </div>
         </div>
     </div>
+
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <script src="/Scripts/jqgrid/js/jquery.jqGrid.min.js"></script>
+    <script src="/Scripts/jqgrid/js/i18n/grid.locale-en.js"></script>
+    <script src="/Scripts/tiny_mce/tiny_mce.js"></script>
+    <script src="/Scripts/admin.js"></script>
 </body>
 </html>

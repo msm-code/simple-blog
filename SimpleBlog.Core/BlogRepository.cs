@@ -233,6 +233,29 @@ namespace SimpleBlog.Core {
             }
         }
 
+        public int AddTag(Tag tag) {
+            using (var tran = session.BeginTransaction()) {
+                session.Save(tag);
+                tran.Commit();
+                return tag.Id;
+            }
+        }
+
+        public void EditTag(Tag tag) {
+            using (var tran = session.BeginTransaction()) {
+                session.SaveOrUpdate(tag);
+                tran.Commit();
+            }
+        }
+
+        public void DeleteTag(int id) {
+            using (var tran = session.BeginTransaction()) {
+                var tag = session.Get<Tag>(id);
+                session.Delete(tag);
+                tran.Commit();
+            }
+        }
+
         public IQueryable<Objects.Post> Func { get; set; }
     }
 }
