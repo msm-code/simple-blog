@@ -203,7 +203,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Readme\NHibernate.DataAnnotations.Readme..txt" />
     <Content Include="Content\Themes\Simple\admin.css" />
     <Content Include="Content\Themes\Simple\images\arrow.png" />
     <Content Include="Content\Themes\Simple\images\back.png" />
