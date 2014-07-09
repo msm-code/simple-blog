@@ -9,6 +9,6 @@ Based on this tutorial series: http://www.prideparrot.com/blog/archive/2012/12/h
 screenshots
 -----------
 
-![page](https://github.com/msm-code/simple-blog/raw/master/demo/page.jpg)
+![page](https://github.com/msm-code/simple-blog/raw/master/demo/page.png)
 
-![admin](https://github.com/msm-code/simple-blog/raw/master/demo/admin.jpg)
+![admin](https://github.com/msm-code/simple-blog/raw/master/demo/admin.png)
